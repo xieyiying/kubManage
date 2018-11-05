@@ -14,12 +14,19 @@
               @current-change="handleCurrentChange">
             </c-pagination>
         </div>
+        <!-- 删除 -->
+        <c-dialog
+          title="删除"
+          :show.sync="show"
+          @confirmDalete="handleDelete"
+        ></c-dialog>
     </div>
 </template>
 <script>
     export default {
         name: 'test',
         data() {
+            const _that = this
             return {
                 tableObject: {
                     data: [
@@ -74,18 +81,23 @@
                             text: '删除',
                             type: 'danger',
                             callback: (index, row) => {
-                                console.log('删除', index, row)
+                                _that.show = true
+                                _that.delId = row.id
                             }
                         }
                     ]
                 },
-                totalPage: 1000
+                totalPage: 1000,
+                show: false,
+                delId: '',
+                multipSelectId: '',
             }
         },
         methods: {
             // 批量选择删除的条目
             selectionChange(multipSelect) {
-                console.log(multipSelect)
+                this.multipSelectId = multipSelect
+                console.log(this.multipSelectId)
             },
             // 批量删除
             handleDelAll() {
@@ -98,6 +110,10 @@
             // 分页切换
             handleCurrentChange(page) {
                 console.log(page)
+            },
+            // 确认删除
+            handleDelete() {
+                console.log(this.delId)
             }
         }
     }

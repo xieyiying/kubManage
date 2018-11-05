@@ -23,3 +23,21 @@ export const format = (now, fmt = 'yyyy-MM-dd') => {
     }
     return fmt
 }
+
+export const delMethods = (deltype, callback1, params1, callback2, params2) => {
+    return new Promise(resolve => {
+        if(deltype === 'single') {
+            callback1(params1).then(res => {
+                resolve(res)
+            })
+        } else if(deltype === 'multiple') {
+            callback2(params2).then(res => {
+                if(res.success) {
+                    resolve(res)
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+    })
+}

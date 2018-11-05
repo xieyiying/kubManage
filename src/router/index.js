@@ -15,6 +15,11 @@ export default new Router({
             meta: { title: '自述文件' },
             children:[
                 {
+                    path: '/userManage',
+                    component: () => import('@/modules/userManage/userManage.vue'),
+                    meta: { title: '用户管理' }
+                },
+                {
                     path: '/test',
                     component: resolve => require(['@/modules/test.vue'], resolve),
                     meta: { title: '测试' }

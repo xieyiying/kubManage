@@ -31,6 +31,11 @@
                 items: [
                     {
                         icon: 'el-icon-setting',
+                        index: 'userManage',
+                        title: '用户管理'
+                    },
+                    {
+                        icon: 'el-icon-setting',
                         index: 'dashboard',
                         title: '系统首页'
                     },

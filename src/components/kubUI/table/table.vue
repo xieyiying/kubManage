@@ -41,13 +41,17 @@
         },
         data() {
             return {
-                multipleSelection: [],
+                multipleSelection: ''
             }
         },
         methods: {
             // 批量选择删除项
-            handleSelectionChange(val) {
-                this.multipleSelection = val;
+            handleSelectionChange(multipSelect) {
+                let multipSelectIdArr = []
+                multipSelect.map( item => {
+                    multipSelectIdArr.push(item.id)
+                })
+                this.multipleSelection = multipSelectIdArr.join(',')
                 this.$emit('selectionChange', this.multipleSelection)
             },
         },

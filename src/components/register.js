@@ -1,7 +1,8 @@
-import table from './table/index'
-import search from './search/index'
-import breadcrumb from './breadcrumb/index'
-import pagination from './pagination/index'
+import table from './kubUI/table/index'
+import search from './kubUI/search/index'
+import breadcrumb from './kubUI/breadcrumb/index'
+import pagination from './kubUI/pagination/index'
+import deldialog from './kubUI/dialog/index'
 
 
 const install = function(Vue){
@@ -10,6 +11,7 @@ const install = function(Vue){
   Vue.component(search.name, search);
   Vue.component(breadcrumb.name, breadcrumb);
   Vue.component(pagination.name, pagination);
+  Vue.component(deldialog.name, deldialog);
 
 }
 if(typeof window !== 'undefined' && window.Vue){
