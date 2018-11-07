@@ -4,7 +4,7 @@
         <div class="container">
             <c-search
               @delAll="handleDelAll"
-              @searchItem="handleSearch"></c-search>
+              @addMessage="handleAddMessage"></c-search>
             <c-table
               :tableObject="tableObject"
               @selectionChange="selectionChange"
@@ -18,8 +18,25 @@
         <c-dialog
           title="删除"
           :show.sync="show"
-          @confirmDalete="handleDelete"
+          @confirm="handleDelete"
+          @closeDialog="closeDialog"
         ></c-dialog>
+        <c-dialog
+          :title="title"
+          :show.sync="editDialogShow"
+          :width="400"
+          :callback="handleSave"
+          :form="form"
+          :rules="rules"
+          @closeDialog="closeDialog"
+        >
+            <el-form-item label="用户名：" prop="name">
+                <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
+            </el-form-item>
+            <el-form-item label="密码：" prop="password">
+                <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
+            </el-form-item>
+        </c-dialog>
     </div>
 </template>
 <script>
@@ -74,8 +91,11 @@
                             text: '编辑',
                             type: '',
                             callback: (index, row) => {
-                                console.log('编辑', index, row)
-                            }
+                                _that.editDialogShow = true
+                                _that.form.name = row.name
+                                _that.form.password = row.address
+                                _that.form.id = row.id
+                            },
                         },
                         {
                             text: '删除',
@@ -83,7 +103,7 @@
                             callback: (index, row) => {
                                 _that.show = true
                                 _that.delId = row.id
-                            }
+                            },
                         }
                     ]
                 },
@@ -91,6 +111,17 @@
                 show: false,
                 delId: '',
                 multipSelectId: '',
+                title: '',
+                editDialogShow: false,
+                form: {},
+                rules: {
+                    name: [
+                        { required: true, message: '请输入用户名', trigger: 'blur' }
+                    ],
+                    password: [
+                        { required: true, message: '请输入密码', trigger: 'blur' }
+                    ]
+                }
             }
         },
         methods: {
@@ -101,11 +132,11 @@
             },
             // 批量删除
             handleDelAll() {
-
+                
             },
-            // 搜索
-            handleSearch(val) {
-                console.log(val)
+            // 新增
+            handleAddMessage() {
+                this.editDialogShow = true
             },
             // 分页切换
             handleCurrentChange(page) {
@@ -114,6 +145,14 @@
             // 确认删除
             handleDelete() {
                 console.log(this.delId)
+            },
+            handleSave() {
+                console.log(this.form)
+            },
+            closeDialog() {
+                this.show = false
+                this.editDialogShow = false
+                this.form = {}
             }
         }
     }

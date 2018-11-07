@@ -8,6 +8,9 @@ import '../static/css/theme-green/index.css';       // 浅绿色主题
 import '../static/css/theme-green/color-green.css';       // 浅绿色主题
 import "babel-polyfill";
 import Register from '@/components/register'
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 
 Vue.use(Register)
 Vue.use(ElementUI, { size: 'small' });

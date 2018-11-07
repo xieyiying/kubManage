@@ -30,9 +30,19 @@
                 collapse: false,
                 items: [
                     {
-                        icon: 'el-icon-setting',
+                        icon: 'el-icon-tickets',
                         index: 'userManage',
                         title: '用户管理'
+                    },
+                    {
+                        icon: 'el-icon-tickets',
+                        index: 'menuManage',
+                        title: '菜单管理'
+                    },
+                    {
+                        icon: 'el-icon-tickets',
+                        index: 'homeManage',
+                        title: '首页管理'
                     },
                     {
                         icon: 'el-icon-setting',

@@ -10,8 +10,8 @@
               :width="col.width"
             >
                 <template slot-scope="scope">
-                    <img v-if="'flag' in col && col.prop in scope.row" :src="scope.row[col.prop]" alt="" style="width: 100%; height: 200px;">
-                    <span v-else>{{scope.row[col.prop]}}</span>
+                    <img v-if="'image' in col && col.prop in scope.row" :src="scope.row[col.prop]" alt="" style="width: 100%; height: 200px;">
+                    <span v-else v-html="scope.row[col.prop]"></span>
                 </template>
             </el-table-column>
             <el-table-column label="操作" width="240">
@@ -47,12 +47,15 @@
         methods: {
             // 批量选择删除项
             handleSelectionChange(multipSelect) {
-                let multipSelectIdArr = []
-                multipSelect.map( item => {
-                    multipSelectIdArr.push(item.id)
-                })
-                this.multipleSelection = multipSelectIdArr.join(',')
+                if(multipSelect.length > 0) {
+                    let multipSelectIdArr = []
+                    multipSelect.map( item => {
+                        multipSelectIdArr.push(item.id)
+                    })
+                    this.multipleSelection = multipSelectIdArr.join(',')
+                }
                 this.$emit('selectionChange', this.multipleSelection)
+                
             },
         },
         created() {

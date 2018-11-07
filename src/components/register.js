@@ -3,6 +3,7 @@ import search from './kubUI/search/index'
 import breadcrumb from './kubUI/breadcrumb/index'
 import pagination from './kubUI/pagination/index'
 import deldialog from './kubUI/dialog/index'
+import upload from './kubUI/upload/index'
 
 
 const install = function(Vue){
@@ -12,6 +13,7 @@ const install = function(Vue){
   Vue.component(breadcrumb.name, breadcrumb);
   Vue.component(pagination.name, pagination);
   Vue.component(deldialog.name, deldialog);
+  Vue.component(upload.name, upload);
 
 }
 if(typeof window !== 'undefined' && window.Vue){

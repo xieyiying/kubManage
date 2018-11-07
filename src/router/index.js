@@ -7,7 +7,7 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/dashboard'
+            redirect: '/userManage'
         },
         {
             path: '/',
@@ -18,6 +18,33 @@ export default new Router({
                     path: '/userManage',
                     component: () => import('@/modules/userManage/userManage.vue'),
                     meta: { title: '用户管理' }
+                },
+                {
+                    path: '/menuManage',
+                    component: () => import('@/modules/menuManage/menuManage.vue'),
+                    meta: { title: '菜单管理' }
+                },
+                {
+                    path: '/homeManage',
+                    component: () => import('@/modules/homeManage/homeManage.vue'),
+                    meta: { title: '首页管理' },
+                    // children: [
+                    //     {
+                    //         path: 'editHomeMsg',
+                    //         component: () => import('@/modules/homeManage/editHomeMsg.vue'),
+                    //         meta: { title: '首页数据编辑' }
+                    //     },
+                    // ]
+                },
+                {
+                    path: '/editHomeMsg',
+                    component: () => import('@/modules/homeManage/editHomeMsg.vue'),
+                    meta: { title: '首页数据编辑' }
+                },
+                {
+                    path: '/menuManage',
+                    component: () => import('@/modules/menuManage/menuManage.vue'),
+                    meta: { title: '菜单管理' }
                 },
                 {
                     path: '/test',
@@ -35,11 +62,6 @@ export default new Router({
                     meta: { title: '基础表格' }
                 },
                 {
-                    path: '/tabs',
-                    component: resolve => require(['../components/page/Tabs.vue'], resolve),
-                    meta: { title: 'tab选项卡' }
-                },
-                {
                     path: '/form',
                     component: resolve => require(['../components/page/BaseForm.vue'], resolve),
                     meta: { title: '基本表单' }
@@ -51,35 +73,11 @@ export default new Router({
                     meta: { title: '富文本编辑器' }
                 },
                 {
-                    // markdown组件
-                    path: '/markdown',
-                    component: resolve => require(['../components/page/Markdown.vue'], resolve),
-                    meta: { title: 'markdown编辑器' }    
-                },
-                {
                     // 图片上传组件
                     path: '/upload',
                     component: resolve => require(['../components/page/Upload.vue'], resolve),
                     meta: { title: '文件上传' }   
                 },
-                {
-                    // vue-schart组件
-                    path: '/charts',
-                    component: resolve => require(['../components/page/BaseCharts.vue'], resolve),
-                    meta: { title: 'schart图表' }
-                },
-                {
-                    // 拖拽列表组件
-                    path: '/drag',
-                    component: resolve => require(['../components/page/DragList.vue'], resolve),
-                    meta: { title: '拖拽列表' }
-                },
-                {
-                    // 权限页面
-                    path: '/permission',
-                    component: resolve => require(['../components/page/Permission.vue'], resolve),
-                    meta: { title: '权限测试', permission: true }
-                }
             ]
         },
         {
