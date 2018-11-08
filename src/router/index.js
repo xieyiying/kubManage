@@ -28,55 +28,31 @@ export default new Router({
                     path: '/homeManage',
                     component: () => import('@/modules/homeManage/homeManage.vue'),
                     meta: { title: '首页管理' },
-                    // children: [
-                    //     {
-                    //         path: 'editHomeMsg',
-                    //         component: () => import('@/modules/homeManage/editHomeMsg.vue'),
-                    //         meta: { title: '首页数据编辑' }
-                    //     },
-                    // ]
                 },
                 {
-                    path: '/editHomeMsg',
-                    component: () => import('@/modules/homeManage/editHomeMsg.vue'),
-                    meta: { title: '首页数据编辑' }
+                    path: '/kubManage',
+                    component: () => import('@/modules/kubManage/kubManage.vue'),
+                    meta: { title: '可优比管理' }
                 },
                 {
-                    path: '/menuManage',
-                    component: () => import('@/modules/menuManage/menuManage.vue'),
-                    meta: { title: '菜单管理' }
+                    path: '/editKubMsg',
+                    component: () => import('@/modules/kubManage/editKubMsg.vue'),
+                    meta: { title: '可优比数据编辑' }
                 },
                 {
-                    path: '/test',
-                    component: resolve => require(['@/modules/test.vue'], resolve),
-                    meta: { title: '测试' }
+                    path: '/productManage',
+                    component: () => import('@/modules/productManage/productManage.vue'),
+                    meta: { title: '产品管理' }
                 },
                 {
-                    path: '/dashboard',
-                    component: resolve => require(['../components/page/Dashboard.vue'], resolve),
-                    meta: { title: '系统首页' }
+                    path: '/editProductMsg',
+                    component: () => import('@/modules/productManage/editProductMsg.vue'),
+                    meta: { title: '产品数据编辑' }
                 },
                 {
-                    path: '/table',
-                    component: resolve => require(['../components/page/BaseTable.vue'], resolve),
-                    meta: { title: '基础表格' }
-                },
-                {
-                    path: '/form',
-                    component: resolve => require(['../components/page/BaseForm.vue'], resolve),
-                    meta: { title: '基本表单' }
-                },
-                {
-                    // 富文本编辑器组件
-                    path: '/editor',
-                    component: resolve => require(['../components/page/VueEditor.vue'], resolve),
-                    meta: { title: '富文本编辑器' }
-                },
-                {
-                    // 图片上传组件
-                    path: '/upload',
-                    component: resolve => require(['../components/page/Upload.vue'], resolve),
-                    meta: { title: '文件上传' }   
+                    path: '/productDetialManage',
+                    component: () => import('@/modules/productManage/productDetialManage/productDetialManage.vue'),
+                    meta: { title: '产品详情管理' }
                 },
             ]
         },

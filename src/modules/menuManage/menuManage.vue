@@ -112,7 +112,7 @@
                 }).then(res => {
                     if(res.success) {
                         this.tableObject.data = res.body.list
-                        this.totalPage = res.count
+                        this.totalPage = res.body.count
                     }
                 })
             },

@@ -1,6 +1,6 @@
 <template>
     <div class="c-table">
-        <el-table :data="tableObject.data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
+        <el-table :data="tableObject.data" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange" stripe>
             <el-table-column type="selection" width="55"></el-table-column>   
             <el-table-column
               v-for="(col,index) in tableObject.column"
@@ -10,11 +10,11 @@
               :width="col.width"
             >
                 <template slot-scope="scope">
-                    <img v-if="'image' in col && col.prop in scope.row" :src="scope.row[col.prop]" alt="" style="width: 100%; height: 200px;">
+                    <img v-if="'image' in col && col.prop in scope.row" :src="scope.row[col.prop]" alt="" style="width: 100%; height: 150px;">
                     <span v-else v-html="scope.row[col.prop]"></span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="240">
+            <el-table-column label="操作" width="200" fixed="right">
                 <template slot-scope="scope">
                     <el-button
                       v-for="(button, index) in tableObject.buttons"

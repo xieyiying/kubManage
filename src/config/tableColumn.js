@@ -34,11 +34,114 @@ export const homeColumn = [
         label: '文字',
     },
     {
+        prop: 'homeMail',
+        label: '邮箱',
+    },
+    {
         prop: 'languageType',
         label: '语言',
     },
+]
+
+// 可优比管理
+export const kubColumn = [
     {
-        prop: 'remarks',
-        label: '备注信息',
+        prop: 'kubBackground',
+        label: '背景图',
+        image: 'image',
+    },
+    {
+        prop: 'kubTitleHeader',
+        label: '标题头',
+    },
+    {
+        prop: 'kubTitle',
+        label: '标题',
+    },
+    {
+        prop: 'kubDetailsBackground',
+        label: 'kub详情背景图',
+        image: 'image',
+    },
+    {
+        prop: 'boosPhoto',
+        label: '老板照片',
+        image: 'image',
+    },
+    {
+        prop: 'languageType',
+        label: '语言类型',
+    },
+]
+
+// 产品管理
+export const productColumn = [
+    {
+        prop: 'productBackground',
+        label: '背景图',
+        image: 'image',
+    },
+    {
+        prop: 'productMainPhoto',
+        label: '主图',
+        image: 'image',
+    },
+    {
+        prop: 'productTitle',
+        label: '标题',
+    },
+    {
+        prop: 'title',
+        label: '产品系列标题',
+    },
+    {
+        prop: 'languageType',
+        label: '语言',
+    },
+]
+
+// 产品详情管理
+export const productDetialColumn = [
+    {
+        prop: 'productPhoto',
+        label: '产品图片',
+        image: 'image',
+    },
+    {
+        prop: 'productName',
+        label: '产品名称',
+    },
+    {
+        prop: 'productUrl',
+        label: '产品链接',
+    },
+    {
+        prop: 'languageType',
+        label: '语言',
+    },
+]
+
+// 资讯管理
+export const newsColumn = [
+    {
+        prop: 'newsPhotoUrl',
+        label: '新闻封面',
+        image: 'image',
+    },
+    {
+        prop: 'newsType',
+        label: '新闻类型',
+    },
+    {
+        prop: 'sort',
+        label: '排序',
+    },
+    {
+        prop: 'newTitle',
+        label: '新闻标题',
+    },
+    {
+        prop: 'languageType',
+        label: '语言',
     },
 ]

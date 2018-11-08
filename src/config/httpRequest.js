@@ -10,6 +10,9 @@ export const getLanguageType = params => {
     return getRequest(httpUrl + '/kubgw/page/kubgw/home/kubNavigatPhoto/getlanguageTypeDict', params)
 }
 
+// 图片上传接口
+export const uploadImage = httpUrl + '/kubgw/page/kubgw/upload/imageUpload'
+
 
 
 /** 用户信息管理 */
@@ -83,5 +86,84 @@ export const homeInterfaceRequest = {
     // 批量删除首页信息
     batchDeleteHomeData: (params) => {
         return getRequest(httpUrl + '/kubgw/page/kubgw/home/kubNavigatHome/deleteAll', params)
+    },
+}
+
+
+/** kub管理 */
+export const kubInterfaceRequest = {
+    // 获取kub列表
+    getListData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/kub/kubNavigatKub/listInfo', params)
+    },
+    // 修改kub信息
+    updateData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/kub/kubNavigatKub/updateForm', params)
+    },
+    // 保存kub信息
+    saveData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/kub/kubNavigatKub/save', params)
+    },
+    // 删除kub信息
+    deleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/kub/kubNavigatKub/delete', params)
+    },
+    // 批量删除kub信息
+    batchDeleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/kub/kubNavigatKub/deleteAll', params)
+    },
+}
+
+
+/** 产品管理 */
+export const productInterfaceRequest = {
+    // 获取列表
+    getListData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/listInfo', params)
+    },
+    // 修改信息
+    updateData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/updateForm', params)
+    },
+    // 保存信息
+    saveData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/save', params)
+    },
+    // 删除信息
+    deleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/delete', params)
+    },
+    // 批量删除信息
+    batchDeleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/deleteAll', params)
+    },
+}
+
+
+/** 产品详情管理 */
+export const productDetialInterfaceRequest = {
+    // 获取列表
+    getListData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProductDetails/listInfo', params)
+    },
+    // 获取产品类型信息
+    getProductType: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/getKubProductTitleInfo', params)
+    },
+    // 修改信息
+    updateData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProductDetails/updateForm', params)
+    },
+    // 保存信息
+    saveData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProductDetails/save', params)
+    },
+    // 删除信息
+    deleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProductDetails/delete', params)
+    },
+    // 批量删除信息
+    batchDeleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProductDetails/deleteAll', params)
     },
 }

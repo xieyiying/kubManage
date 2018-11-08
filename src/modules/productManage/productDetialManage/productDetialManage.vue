@@ -1,6 +1,6 @@
 <template>
     <div class="test">
-        <c-breadcrumb tableTitle="首页管理"></c-breadcrumb> 
+        <c-breadcrumb tableTitle="产品详情管理"></c-breadcrumb> 
         <div class="container">
             <c-search
               @delAll="handleDelAll"
@@ -26,49 +26,54 @@
         <c-dialog
           :title="title"
           :show.sync="editDialogShow"
-          :callback="onSubmit"
+          :callback="handleSave"
           :form="form"
           :rules="rules"
           @closeDialog="closeDialog"
           :width="600"
         >
             <el-form-item label="语言类型" prop="languageType">
-                <el-select v-model="form.languageType" placeholder="请选择语言">
+                <el-select v-model="form.languageType" placeholder="请选择语言" @change="languageChange">
                     <el-option :key="item.value" :label="item.label" :value="item.value" v-for="item in languageList"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="上传图片" prop="homePhoto">
-                <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="homePhoto"></c-upload>
+            <el-form-item label="产品类型" prop="productId">
+                <el-select v-model="form.productId" placeholder="请选择类型">
+                    <el-option :key="item.id" :label="item.productTitle" :value="item.id" v-for="item in productTypeList"></el-option>
+                </el-select>
             </el-form-item>
-            <el-form-item label="文字">
-                <el-input v-model="form.homeConten" placeholder="请输入文字"></el-input>
+            <el-form-item label="产品图片" prop="productPhoto">
+                <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="productPhoto" imageName="productPhoto"></c-upload>
             </el-form-item>
-            <el-form-item label="邮箱">
-                <el-input v-model="form.homeMail" placeholder="请输入邮箱"></el-input>
+            <el-form-item label="产品名称" prop="productName">
+                <el-input v-model="form.productName" placeholder="请输入产品名称"></el-input>
+            </el-form-item>
+            <el-form-item label="产品链接" prop="productUrl">
+                <el-input v-model="form.productUrl" placeholder="请输入产品链接"></el-input>
             </el-form-item>
         </c-dialog>
     </div>
 </template>
 <script>
-    import { homeColumn } from '@/config/tableColumn'
+    import { productDetialColumn } from '@/config/tableColumn'
     import { delMethods } from '@/config/utils'
-    import { homeInterfaceRequest } from '@/config/httpRequest'
+    import { productDetialInterfaceRequest } from '@/config/httpRequest'
     import mixin from '@/mixins/mixin'
     export default {
-        name: 'homeManage',
+        name: 'productDetialManage',
         mixins: [mixin],
         data() {
             return {
                 tableObject: {
                     data: [], // 表格数据
-                    column: homeColumn, // 表格头
+                    column: productDetialColumn, // 表格头
                     buttons: [ // 操作按钮
                         {
                             text: '编辑',
                             callback: (index, row) => {
-                                this.getSingleData(row.id)
                                 this.title = '编辑'
                                 this.editDialogShow = true
+                                this.getSingleData(row.id)
                             },
                         },
                         {
@@ -88,33 +93,41 @@
                 delId: '', // 删除单条的id
                 multipSelectId: '', // 批量选择删除的条目id
                 delflag: 'single', // 删除单个 / 多个 标志
-                languageList: [], // 语言列表
-                title: '',
+                languageList: [], // 语言类型
+                title: '', // 编辑 或 新增
                 editDialogShow: false,
                 form: {},
                 rules: {
                     languageType: [
                         { required: true, message: '请选择语言', trigger: 'blur' }
                     ],
-                    homePhoto: [
+                    productId: [
+                        { required: true, message: '请选择类型', trigger: 'blur' }
+                    ],
+                    productPhoto: [
                         { required: true, message: '请选择图片' }
                     ],
+                    productName: [
+                        { required: true, message: '请输入产品名称', trigger: 'blur' }
+                    ],
+                    productUrl: [
+                        { required: true, message: '请输入产品链接', trigger: 'blur' }
+                    ],
                 },
-                languageList: [],
-                homePhoto: [],
+                productTypeList: [], // 产品类型
+                productPhoto: []
             }
         },
         methods: {
             // 获取用户信息列表
             getData(currentPage) {
-                var _that = this
-                homeInterfaceRequest.getHomeData({
+                productDetialInterfaceRequest.getListData({
                     pageNo: currentPage,
                     pageSize: 10
                 }).then(res => {
                     if(res.success) {
-                        _that.tableObject.data = res.body.list
-                        _that.totalPage = res.body.count
+                        this.tableObject.data = res.body.list
+                        this.totalPage = res.body.count
                     }
                 })
             },
@@ -123,43 +136,51 @@
                 this.currentPage = page
                 this.getData(this.currentPage)
             },
-            // 新增
-            handleAddMessage() {
-                this.editDialogShow = true
-                this.title = '新增'
+            languageChange(languageType) {
+                productDetialInterfaceRequest.getProductType({
+                    languageType: languageType
+                }).then(res => {
+                    this.productTypeList = res
+                })
             },
             // 获取单条用户信息
             getSingleData(id) {
-                homeInterfaceRequest.updateHomeData({
+                productDetialInterfaceRequest.updateData({
                     id: id
                 }).then(res => {
-                    this.homePhoto.push({
-                        url: res.body.kubNavigatHome.homePhoto
+                    this.productPhoto.push({
+                        url: res.body.kubNavigatHome.productPhoto
                     })
                     this.$set(this.form, 'languageType', res.body.kubNavigatHome.languageType)
-                    this.$set(this.form, 'homeConten', res.body.kubNavigatHome.homeConten)
-                    this.$set(this.form, 'homePhoto', res.body.kubNavigatHome.homePhoto)
-                    this.$set(this.form, 'homeMail', res.body.kubNavigatHome.homeMail)
+                    this.$set(this.form, 'productId', res.body.kubNavigatHome.productId)
+                    this.$set(this.form, 'productPhoto', res.body.kubNavigatHome.productPhoto)
+                    this.$set(this.form, 'productName', res.body.kubNavigatHome.productName)
+                    this.$set(this.form, 'productUrl', res.body.kubNavigatHome.productUrl)
                     this.$set(this.form, 'id', id)
                 })
             },
-            // 图片上传成功
-            uploadSuccess(response, file, fileList) {
-                this.$set(this.form, 'homePhoto', response)
-            },
-            // 图片移除
-            uploadRemove(file, fileList) {
-
+            // 新增
+            handleAddMessage() {
+                this.title = '新增'
+                this.editDialogShow = true
             },
             // 保存
-            onSubmit() {
-                homeInterfaceRequest.saveHomeData(this.form).then(res => {
+            handleSave() {
+                productDetialInterfaceRequest.saveData(this.form).then(res => {
                     this.$message.success(res.msg)
                     if(res.success) {
                         this.editDialogShow = false
                         this.getData(this.currentPage)
                     }
                 })
+            },
+            // 图片上传成功
+            uploadSuccess(response, file, fileList, imageName) {
+                this.$set(this.form, imageName, response)
+            },
+            // 移除图片
+            uploadRemove(file, fileList) {
+
             },
             // 批量选择删除的条目
             selectionChange(multipSelect) {
@@ -174,9 +195,9 @@
             handleDelete() {
                 delMethods(
                     this.delflag,
-                    homeInterfaceRequest.deleteHomeData,
+                    productDetialInterfaceRequest.deleteData,
                     {id: this.delId},
-                    homeInterfaceRequest.batchDeleteHomeData,
+                    productDetialInterfaceRequest.batchDeleteData,
                     {ids: this.multipSelectId}
                 )
                 .then(res => {
@@ -190,11 +211,11 @@
                 this.delDialogShow = false
                 this.editDialogShow = false
                 this.form = {}
-                this.homePhoto = []
+                this.productPhoto = []
             },
         },
         created() {
             this.getData(this.currentPage)
-        }
+        },
     }
 </script>
