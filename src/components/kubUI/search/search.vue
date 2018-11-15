@@ -1,10 +1,10 @@
 <template>
     <div class="c-search">
         <div class="handle-box">
-            <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll">批量删除</el-button>
+            <el-button type="primary" icon="delete" class="handle-del mr10" @click="delAll" v-show="isBatchDelete">批量删除</el-button>
             <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10" v-show="isSearch"></el-input>
             <el-button type="primary" icon="el-icon-search" @click="search" v-show="isSearch">搜索</el-button>
-            <el-button type="primary" @click="addItem" style="float: right">新增</el-button>
+            <el-button type="primary" @click="addItem" style="float: right" v-show="isAdd">新增</el-button>
         </div>
     </div>
 </template>
@@ -20,7 +20,15 @@
             isSearch: {
                 type: Boolean,
                 default: false
-            }
+            },
+            isBatchDelete: {
+                type: Boolean,
+                default: true
+            },
+            isAdd: {
+                type: Boolean,
+                default: true
+            },
         },
         methods: {
             // 批量删除

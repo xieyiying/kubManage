@@ -10,7 +10,8 @@
               :width="col.width"
             >
                 <template slot-scope="scope">
-                    <img v-if="'image' in col && col.prop in scope.row" :src="scope.row[col.prop]" alt="" style="width: 100%; height: 150px;">
+                    <img v-if="'image' in col && col['image'] == 'image'" :src="scope.row[col.prop]" alt="" style="width: 100%; height: 150px;">
+                    <video v-else-if="'image' in col && col['image'] == 'video'" :src="scope.row[col.prop]"></video>
                     <span v-else v-html="scope.row[col.prop]"></span>
                 </template>
             </el-table-column>

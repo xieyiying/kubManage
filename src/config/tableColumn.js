@@ -133,15 +133,59 @@ export const newsColumn = [
         label: '新闻类型',
     },
     {
-        prop: 'sort',
-        label: '排序',
-    },
-    {
         prop: 'newTitle',
         label: '新闻标题',
     },
     {
+        prop: 'isPublish',
+        label: '发布状态',
+    },
+    {
+        prop: 'sort',
+        label: '排序',
+    },
+    {
         prop: 'languageType',
         label: '语言',
+    },
+]
+
+// 联系管理
+export const contactColumn = [
+    {
+        prop: 'name',
+        label: '联系人名称',
+    },
+    {
+        prop: 'phone',
+        label: '联系人电话',
+    },
+    {
+        prop: 'mail',
+        label: '联系人邮箱',
+    },
+    {
+        prop: 'bbs',
+        label: '联系人留言',
+    },
+    {
+        prop: 'languageType',
+        label: '语言类型',
+    },
+]
+
+// 背景图片与视频管理
+export const backgroundColumn = [
+    {
+        prop: 'type',
+        label: '类型',
+    },
+    {
+        prop: 'background',
+        label: '背景',
+    },
+    {
+        prop: 'languageType',
+        label: '语言类型',
     },
 ]

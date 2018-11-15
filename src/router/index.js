@@ -54,6 +54,26 @@ export default new Router({
                     component: () => import('@/modules/productManage/productDetialManage/productDetialManage.vue'),
                     meta: { title: '产品详情管理' }
                 },
+                {
+                    path: '/newsManage',
+                    component: () => import('@/modules/newsManage/newsManage.vue'),
+                    meta: { title: '资讯管理' }
+                },
+                {
+                    path: '/editNewsMsg',
+                    component: () => import('@/modules/newsManage/editNewsMsg.vue'),
+                    meta: { title: '资讯数据编辑' }
+                },
+                {
+                    path: '/contactManage',
+                    component: () => import('@/modules/contactManage/contactManage.vue'),
+                    meta: { title: '联系信息管理' }
+                },
+                {
+                    path: '/backgroundManage',
+                    component: () => import('@/modules/backgroundManage/backgroundManage.vue'),
+                    meta: { title: '背景图片与视频管理' }
+                },
             ]
         },
         {

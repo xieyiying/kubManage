@@ -64,6 +64,21 @@
                             },
                         ]
                     },
+                    {
+                        icon: 'el-icon-tickets',
+                        index: 'newsManage',
+                        title: '资讯管理'
+                    },
+                    {
+                        icon: 'el-icon-tickets',
+                        index: 'contactManage',
+                        title: '联系信息管理'
+                    },
+                    {
+                        icon: 'el-icon-tickets',
+                        index: 'backgroundManage',
+                        title: '背景图片与视频管理'
+                    },
                 ]
             }
         },

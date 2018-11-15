@@ -167,3 +167,78 @@ export const productDetialInterfaceRequest = {
         return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProductDetails/deleteAll', params)
     },
 }
+
+
+/** 资讯管理 */
+export const newsInterfaceRequest = {
+    // 获取列表
+    getListData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/listInfo', params)
+    },
+    // 获取sort信息
+    getNewsSort: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/addForm', params)
+    },
+    // 修改信息
+    updateData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/updateForm', params)
+    },
+    // 保存信息
+    saveData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/save', params)
+    },
+    // 删除信息
+    deleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/delete', params)
+    },
+    // 批量删除信息
+    batchDeleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/deleteAll', params)
+    },
+}
+
+
+/** 联系管理 */
+export const contactInterfaceRequest = {
+    // 获取列表
+    getListData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/relation/kubNavigatRelation/listInfo', params)
+    },
+    // 删除信息
+    deleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/relation/kubNavigatRelation/delete', params)
+    },
+    // 批量删除信息
+    batchDeleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/relation/kubNavigatRelation/deleteAll', params)
+    },
+}
+
+
+/** 背景图片与视频管理 */
+export const backgroundInterfaceRequest = {
+    // 获取列表
+    getListData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/home/kubNavigatPhoto/listInfo', params)
+    },
+    // 修改信息
+    updateData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/home/kubNavigatPhoto/updateForm', params)
+    },
+    // 保存信息
+    saveData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/home/kubNavigatPhoto/save', params)
+    },
+    // 删除信息
+    deleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/home/kubNavigatPhoto/delete', params)
+    },
+    // 批量删除信息
+    batchDeleteData: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/home/kubNavigatPhoto/deleteAll', params)
+    },
+    // 获取背景类型
+    getBackgroundType: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/home/kubNavigatPhoto/getBackgroundTypeDict', params)
+    }
+}
