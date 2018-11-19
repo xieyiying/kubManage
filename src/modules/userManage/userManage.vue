@@ -43,7 +43,7 @@
 </template>
 <script>
     import { userColumn } from '@/config/tableColumn'
-    import { delMethods } from '@/config/utils'
+    import { delMethods, editTips } from '@/config/utils'
     import { getUserList, updateUserMsg, saveUserMsg, deleteUserMsg, batchDeleteUserMsg } from '@/config/httpRequest'
     export default {
         name: 'userManage',
@@ -153,7 +153,8 @@
             // 保存
             handleSave() {
                 saveUserMsg(this.form).then(res => {
-                    this.$message.success(res.msg)
+                    // this.$message.success(res.msg)
+                    editTips(this.title)
                     if(res.success) {
                         this.editDialogShow = false
                         this.form = {}

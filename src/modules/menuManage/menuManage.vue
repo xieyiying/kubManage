@@ -48,14 +48,25 @@
 </template>
 <script>
     import { menuColumn } from '@/config/tableColumn'
-    import { delMethods } from '@/config/utils'
+    import { delMethods, editTips } from '@/config/utils'
     import mixin from '@/mixins/mixin'
     import { getMenuListData, getMenuSortData, updateMenuData, saveMenuData, deleteMenuData, batchDeleteMenuData } from '@/config/httpRequest'
     export default {
         name: 'menuManage',
         mixins: [mixin],
         data() {
-            const _that = this
+            let checkSortValue = (rule, value, callback) => {
+                let sortRegExp = /\d/
+                if(value) {
+                    if(sortRegExp.test(value) == false) {
+                        callback(new Error('请输入数字！'))
+                    } else {
+                        callback()
+                    }
+                } else {
+                    callback(new Error('请输入排序！'))
+                }
+            }
             return {
                 tableObject: {
                     data: [], // 表格数据
@@ -64,18 +75,18 @@
                         {
                             text: '编辑',
                             callback: (index, row) => {
-                                _that.editDialogShow = true
-                                _that.getSingleData(row.id)
-                                _that.title = '编辑'
+                                this.editDialogShow = true
+                                this.getSingleData(row.id)
+                                this.title = '编辑'
                             },
                         },
                         {
                             text: '删除',
                             type: 'danger',
                             callback: (index, row) => {
-                                _that.delDialogShow = true
-                                _that.delId = row.id
-                                _that.delflag = 'single'
+                                this.delDialogShow = true
+                                this.delId = row.id
+                                this.delflag = 'single'
                             },
                         }
                     ]
@@ -94,7 +105,7 @@
                         { required: true, message: '请选择语言', trigger: 'blur' }
                     ],
                     sort: [
-                        { required: true, message: '请输入排序', trigger: 'blur' }
+                        { required: true, validator: checkSortValue, trigger: 'blur' }
                     ],
                     name: [
                         { required: true, message: '请输入菜单名', trigger: 'blur' }
@@ -172,8 +183,8 @@
             // 保存
             handleSave() {
                 saveMenuData(this.form).then(res => {
+                    editTips(this.title)
                     if(res.success) {
-                        this.$message.success(res.msg)
                         this.editDialogShow = false
                         this.form = {}
                         this.getData(this.currentPage)

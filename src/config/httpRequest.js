@@ -12,6 +12,10 @@ export const getLanguageType = params => {
 
 // 图片上传接口
 export const uploadImage = httpUrl + '/kubgw/page/kubgw/upload/imageUpload'
+// 删除图片接口
+export const deleteImage = params => {
+    return getRequest(httpUrl + '/kubgw/page/kubgw/upload/deleteImage', params)
+}
 
 
 
@@ -178,6 +182,10 @@ export const newsInterfaceRequest = {
     // 获取sort信息
     getNewsSort: params => {
         return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/addForm', params)
+    },
+    // 获取资讯类型
+    getNewsType: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/getNewsTypeDict', params)
     },
     // 修改信息
     updateData: params => {

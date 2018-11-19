@@ -21,10 +21,12 @@
                     <el-form-item label="标题：" prop="productTitle">
                         <el-input v-model="form.productTitle" placeholder="请输入标题"></el-input>
                     </el-form-item>
+                    <el-form-item label="产品介绍：" prop="introduce">
+                        <el-input v-model="form.introduce" placeholder="请输入产品介绍"></el-input>
+                    </el-form-item>
                     <el-form-item label="内容：" prop="productContent">
                         <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.productContent"></vue-editor>
                     </el-form-item>
-                    
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit('form')">保存</el-button>
                         <el-button @click="backHomeManage('form')">取消</el-button>
@@ -38,6 +40,7 @@
     import mixin from '@/mixins/mixin'
     import { productInterfaceRequest } from '@/config/httpRequest'
     import { VueEditor } from 'vue2-editor'
+    import { editTips } from '@/config/utils'
     export default {
         name: 'editProductMsg',
         mixins: [mixin],
@@ -56,13 +59,16 @@
                         { required: true, message: '请选择图片' }
                     ],
                     productTitle: [
-                        { required: true, message: '请输入标题头' }
+                        { required: true, message: '请输入标题', trigger: 'blur' }
                     ],
                     title: [
-                        { required: true, message: '请输入产品系列标题' }
+                        { required: true, message: '请输入产品系列标题', trigger: 'blur' }
+                    ],
+                    introduce: [
+                        { required: true, message: '请输入产品介绍', trigger: 'blur' }
                     ],
                     productContent: [
-                        { required: true, message: '请输入内容' }
+                        { required: true, message: '请输入内容', trigger: 'blur' }
                     ],
                     productMainPhoto: [
                         { required: true, message: '请选择图片' }
@@ -91,6 +97,7 @@
                     this.$set(this.form, 'productContent', res.body.kubNavigatHome.productContent)
                     this.$set(this.form, 'productMainPhoto', res.body.kubNavigatHome.productMainPhoto)
                     this.$set(this.form, 'title', res.body.kubNavigatHome.title)
+                    this.$set(this.form, 'introduce', res.body.kubNavigatHome.introduce)
                     this.$set(this.form, 'id', id)
                 })
             },
@@ -99,18 +106,20 @@
                 this.$set(this.form, imageName, response)
             },
             // 图片移除
-            uploadRemove(file, fileList) {
-
+            uploadRemove(file, fileList, imageName) {
+                this.$set(this.form, imageName, [])
             },
             // 保存
             onSubmit(formName) {
-                console.log(this.form)
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         productInterfaceRequest.saveData(this.form).then(res => {
-                            this.$message.success(res.msg)
+                            // this.$message.success(res.msg)
+                            editTips(this.$route.query.title)
                             if(res.success) {
                                 this.$refs[formName].resetFields()
+                                this.productBackground = []
+                                this.productMainPhoto = []
                                 this.$router.push({path: '/productManage'})
                             }
                         })

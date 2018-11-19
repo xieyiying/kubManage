@@ -27,11 +27,11 @@
                     <el-form-item label="详情内容：" prop="kubDetailsContent">
                         <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.kubDetailsContent"></vue-editor>
                     </el-form-item>
-                    <el-form-item label="老板介绍：" prop="boosIntroduce">
-                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.boosIntroduce"></vue-editor>
-                    </el-form-item>
                     <el-form-item label="老板照片：" prop="boosPhoto">
                         <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="boosPhoto" imageName="boosPhoto"></c-upload>
+                    </el-form-item>
+                    <el-form-item label="老板介绍：" prop="boosIntroduce">
+                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.boosIntroduce"></vue-editor>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit('form')">保存</el-button>
@@ -46,6 +46,7 @@
     import mixin from '@/mixins/mixin'
     import { kubInterfaceRequest } from '@/config/httpRequest'
     import { VueEditor } from 'vue2-editor'
+    import { editTips } from '@/config/utils'
     export default {
         name: 'editHomeMsg',
         mixins: [mixin],
@@ -123,17 +124,20 @@
                 this.$set(this.form, imageName, response)
             },
             // 图片移除
-            uploadRemove(file, fileList) {
-
+            uploadRemove(file, fileList, imageName) {
+                this.$set(this.form, imageName, [])
             },
             // 保存
             onSubmit(formName) {
-                console.log(this.form)
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         kubInterfaceRequest.saveData(this.form).then(res => {
-                            this.$message.success(res.msg)
+                            // this.$message.success(res.msg)
+                            editTips(this.$route.query.title)
                             if(res.success) {
+                                this.kubBackground = []
+                                this.kubDetailsBackground = []
+                                this.boosPhoto = []
                                 this.$refs[formName].resetFields()
                                 this.$router.push({path: '/kubManage'})
                             }

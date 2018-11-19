@@ -1,6 +1,6 @@
 <template>
     <div class="test">
-        <c-breadcrumb tableTitle="产品管理"></c-breadcrumb> 
+        <c-breadcrumb tableTitle="联系信息管理"></c-breadcrumb> 
         <div class="container">
             <c-search
               :isAdd="false"

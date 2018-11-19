@@ -1,6 +1,6 @@
 <template>
     <div class="test">
-        <c-breadcrumb tableTitle="首页管理"></c-breadcrumb> 
+        <c-breadcrumb tableTitle="背景图片与视频管理"></c-breadcrumb> 
         <div class="container">
             <c-search
               @delAll="handleDelAll"
@@ -44,13 +44,15 @@
             </el-form-item>
             <el-form-item label="上传文件：" prop="background">
                 <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="background" imageName="background"></c-upload>
+                <span style="color: red; display: block">注意：若选择的背景类型为<strong>首页</strong>，请上传视频</span>
+                <span style="color: red; display: block; text-indent: 3em">其他类型则上传图片</span>
             </el-form-item>
         </c-dialog>
     </div>
 </template>
 <script>
     import { backgroundColumn } from '@/config/tableColumn'
-    import { delMethods } from '@/config/utils'
+    import { delMethods, editTips } from '@/config/utils'
     import { backgroundInterfaceRequest } from '@/config/httpRequest'
     import mixin from '@/mixins/mixin'
     export default {
@@ -173,14 +175,16 @@
                 this.$set(this.form, imageName, response)
             },
             // 图片移除
-            uploadRemove(file, fileList) {
-
+            uploadRemove(file, fileList, imageName) {
+                this.$set(this.form, imageName, [])
             },
             // 保存
-            onSubmit() {
+            onSubmit(formName) {
+                // console.log(formName)
                 backgroundInterfaceRequest.saveData(this.form).then(res => {
-                    this.$message.success(res.msg)
+                    editTips(this.title)
                     if(res.success) {
+                        this.background = []
                         this.editDialogShow = false
                         this.getData(this.currentPage)
                     }

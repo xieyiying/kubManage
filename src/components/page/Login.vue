@@ -18,12 +18,13 @@
 </template>
 
 <script>
+    import { LoginRequest } from '@/config/httpRequest'
     export default {
         data: function(){
             return {
                 ruleForm: {
-                    username: 'admin',
-                    password: '123'
+                    username: '',
+                    password: ''
                 },
                 rules: {
                     username: [
@@ -39,8 +40,20 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        localStorage.setItem('username',this.ruleForm.username);
-                        this.$router.push('/');
+                        LoginRequest({
+                            name: this.ruleForm.username,
+                            password: this.ruleForm.password
+                        }).then(res => {
+                            if(res.success) {
+                                localStorage.setItem('username',this.ruleForm.username);
+                                this.$router.push('/');
+                            } else {
+                                this.$message.error(res.msg)
+                            }
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                        
                     } else {
                         console.log('error submit!!');
                         return false;

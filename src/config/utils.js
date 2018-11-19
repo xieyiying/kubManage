@@ -55,7 +55,7 @@ export const delMethods = (deltype, callback1, params1, callback2, params2) => {
                         if(res.success) {
                             Message({
                                 showClose: true,
-                                message: '删除成功！',
+                                message: '批量删除成功！',
                                 type: 'success',
                                 duration: 2000
                             })
@@ -84,4 +84,23 @@ export const delMethods = (deltype, callback1, params1, callback2, params2) => {
             
         }
     })
+}
+
+// 编辑与新增的提示信息
+export const editTips = (title) => {
+    if(title === '新增') {
+        Message({
+            showClose: true,
+            message: '新增信息保存成功！',
+            type: 'success',
+            duration: 2000
+        })
+    } else if(title === '编辑') {
+        Message({
+            showClose: true,
+            message: '编辑信息保存成功！',
+            type: 'success',
+            duration: 2000
+        })
+    }
 }

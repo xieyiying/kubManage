@@ -41,6 +41,7 @@
                 <el-select v-model="form.productId" placeholder="请选择类型">
                     <el-option :key="item.id" :label="item.productTitle" :value="item.id" v-for="item in productTypeList"></el-option>
                 </el-select>
+                <span style="color: red;">(注意：请先选择语言类型！)</span>
             </el-form-item>
             <el-form-item label="产品图片" prop="productPhoto">
                 <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="productPhoto" imageName="productPhoto"></c-upload>
@@ -56,7 +57,7 @@
 </template>
 <script>
     import { productDetialColumn } from '@/config/tableColumn'
-    import { delMethods } from '@/config/utils'
+    import { delMethods, editTips } from '@/config/utils'
     import { productDetialInterfaceRequest } from '@/config/httpRequest'
     import mixin from '@/mixins/mixin'
     export default {
@@ -115,7 +116,18 @@
                     ],
                 },
                 productTypeList: [], // 产品类型
-                productPhoto: []
+                productPhoto: [],
+                productType: new Map([
+                    ['1', ['孕产系列']],
+                    ['2', ['童装系列']],
+                    ['3', ['安防系列']],
+                    ['4', ['出行系列']],
+                    ['5', ['用品系列']],
+                    ['6', ['喂哺系列']],
+                    ['7', ['玩教系列']],
+                    ['8', ['睡眠系列']],
+                    ['default', ['']],
+                ])
             }
         },
         methods: {
@@ -126,6 +138,10 @@
                     pageSize: 10
                 }).then(res => {
                     if(res.success) {
+                        res.body.list.forEach(item => {
+                            let action = this.productType.get(item.productId) || this.productType.get('default')
+                            item.productId = action[0]
+                        })
                         this.tableObject.data = res.body.list
                         this.totalPage = res.body.count
                     }
@@ -167,8 +183,10 @@
             // 保存
             handleSave() {
                 productDetialInterfaceRequest.saveData(this.form).then(res => {
-                    this.$message.success(res.msg)
+                    // this.$message.success(res.msg)
+                    editTips(this.title)
                     if(res.success) {
+                        this.productPhoto = []
                         this.editDialogShow = false
                         this.getData(this.currentPage)
                     }
@@ -179,8 +197,8 @@
                 this.$set(this.form, imageName, response)
             },
             // 移除图片
-            uploadRemove(file, fileList) {
-
+            uploadRemove(file, fileList, imageName) {
+                this.$set(this.form, imageName, [])
             },
             // 批量选择删除的条目
             selectionChange(multipSelect) {

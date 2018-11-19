@@ -63,6 +63,7 @@
                     this.$refs[formName].validate((valid) => {
                         if (valid) {
                             this.callback()
+                            // this.$refs[formName].resetFields()
                         } else {
                             this.$message.warning('保存失败，请填写完整信息！')
                             return false;

@@ -15,7 +15,7 @@
     </div>
 </template>
 <script>
-    import { uploadImage } from '@/config/httpRequest'
+    import { uploadImage, deleteImage } from '@/config/httpRequest'
     export default {
         name: 'c-upload',
         data() {
@@ -36,7 +36,12 @@
                 this.$emit('on-success', response, file, fileList, this.imageName)
             },
             handleRemove(file, fileList) {
-                this.$emit('on-remove', file, fileList)
+                deleteImage({
+                    deletePath: file.response
+                }).then(res => {
+                    
+                })
+                this.$emit('on-remove', file, fileList, this.imageName)
             }
         }
     }

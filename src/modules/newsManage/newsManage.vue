@@ -1,6 +1,6 @@
 <template>
     <div class="test">
-        <c-breadcrumb tableTitle="产品管理"></c-breadcrumb> 
+        <c-breadcrumb tableTitle="资讯管理"></c-breadcrumb> 
         <div class="container">
             <c-search
               @delAll="handleDelAll"
@@ -68,7 +68,7 @@
                     ["2", ["床垫小百科"]],
                     ["3", ["睡眠小百科"]],
                     ["default", [""]],
-                ])
+                ]),
             }
         },
         methods: {

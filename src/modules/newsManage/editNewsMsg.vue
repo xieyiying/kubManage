@@ -1,5 +1,5 @@
 <template>
-    <div class="edit_message">
+    <div class="edit_message" ref="scrollBox">
         <c-breadcrumb :tableTitle="tableTitle"></c-breadcrumb>
         <div class="container">
             <div class="form-box">
@@ -53,6 +53,7 @@
 <script>
     import mixin from '@/mixins/mixin'
     import { newsInterfaceRequest } from '@/config/httpRequest'
+    import { editTips } from '@/config/utils'
     import { VueEditor } from 'vue2-editor'
     export default {
         name: 'editNewsMsg',
@@ -61,9 +62,23 @@
             VueEditor
         },
         data() {
+            let checkSortValue = (rule, value, callback) => {
+                let sortRegExp = /\d/
+                if(value) {
+                    if(sortRegExp.test(value) == false) {
+                        callback(new Error('请输入数字！'))
+                    } else {
+                        callback()
+                    }
+                } else {
+                    callback(new Error('请输入新闻排序！'))
+                }
+            }
             return {
                 tableTitle: '',
-                form: {},
+                form: {
+                    isPublish: '0'
+                },
                 rules: {
                     languageType: [
                         { required: true, message: '请选择语言', trigger: 'blur' }
@@ -72,7 +87,7 @@
                         { required: true, message: '请选择新闻类型', trigger: 'blur' }
                     ],
                     sort: [
-                        { required: true, message: '请输入新闻排序', trigger: 'blur' }
+                        { required: true, validator: checkSortValue, trigger: 'blur' }
                     ],
                     newDescr: [
                         { required: true, message: '请输入新闻表述', trigger: 'blur' }
@@ -97,26 +112,9 @@
                     ],
                 },
                 languageList: [],
-                newsTypeList: [
-                    {
-                        label: '可优比新闻',
-                        value: "0"
-                    },
-                    {
-                        label: '婴儿床小百科',
-                        value: "1"
-                    },
-                    {
-                        label: '床垫小百科',
-                        value: "2"
-                    },
-                    {
-                        label: '睡眠小百科',
-                        value: "3"
-                    },
-                ],
+                newsTypeList: [],
                 newsPhotoUrl: [],
-                isGetSort: false // 是否执行获取sort的方法
+                isGetSort: false, // 是否执行获取sort的方法
             }
         },
         methods: {
@@ -151,21 +149,29 @@
                     })
                 }
             },
+            // 获取新闻类型
+            getNewsType() {
+                newsInterfaceRequest.getNewsType({}).then(res => {
+                    this.newsTypeList = res
+                })
+            },
             // 图片上传成功
             uploadSuccess(response, file, fileList, imageName) {
                 this.$set(this.form, imageName, response)
             },
             // 图片移除
-            uploadRemove(file, fileList) {
-
+            uploadRemove(file, fileList, imageName) {
+                this.$set(this.form, imageName, [])
             },
             // 保存
             onSubmit(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         newsInterfaceRequest.saveData(this.form).then(res => {
-                            this.$message.success(res.msg)
+                            // this.$message.success(res.msg)
+                            editTips(this.$route.query.title)
                             if(res.success) {
+                                this.newsPhotoUrl = []
                                 this.$refs[formName].resetFields()
                                 this.$router.push({path: '/newsManage'})
                             }
@@ -188,10 +194,11 @@
                 } else if(title === '新增') {
                     this.isGetSort = true
                 }
-            }
+            },
         },
         created() {
             this.tableTitle = this.$route.query.title + '数据'
+            this.getNewsType()
         },
         activated() {
             this.changeGetSort(this.$route.query.title)
@@ -201,6 +208,6 @@
                 this.form = {}
                 this.newsPhotoUrl = []
             }
-        }
+        },
     }
 </script>

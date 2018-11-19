@@ -4,6 +4,7 @@ import breadcrumb from './kubUI/breadcrumb/index'
 import pagination from './kubUI/pagination/index'
 import deldialog from './kubUI/dialog/index'
 import upload from './kubUI/upload/index'
+import backToTop from './kubUI/BackToTop/index'
 
 
 const install = function(Vue){
@@ -14,6 +15,7 @@ const install = function(Vue){
   Vue.component(pagination.name, pagination);
   Vue.component(deldialog.name, deldialog);
   Vue.component(upload.name, upload);
+  Vue.component(backToTop.name, backToTop);
 
 }
 if(typeof window !== 'undefined' && window.Vue){

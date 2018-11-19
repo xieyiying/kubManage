@@ -103,6 +103,10 @@ export const productColumn = [
 // 产品详情管理
 export const productDetialColumn = [
     {
+        prop: 'productId',
+        label: '产品类型',
+    },
+    {
         prop: 'productPhoto',
         label: '产品图片',
         image: 'image',

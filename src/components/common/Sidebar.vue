@@ -106,7 +106,7 @@
         overflow-y: scroll;
     }
     .el-menu {
-        background: rgba(56, 157, 170, 0.7);
+        background-color: rgba(56, 157, 170, 0.7)!important;
     }
     .el-menu .el-menu-item:hover {
         color: #333;

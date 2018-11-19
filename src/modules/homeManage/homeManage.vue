@@ -38,12 +38,12 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="上传图片" prop="homePhoto">
-                <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="homePhoto"></c-upload>
+                <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="homePhoto" imageName="homePhoto"></c-upload>
             </el-form-item>
             <el-form-item label="文字">
                 <el-input v-model="form.homeConten" placeholder="请输入文字"></el-input>
             </el-form-item>
-            <el-form-item label="邮箱">
+            <el-form-item label="邮箱" prop="homeMail">
                 <el-input v-model="form.homeMail" placeholder="请输入邮箱"></el-input>
             </el-form-item>
         </c-dialog>
@@ -51,13 +51,25 @@
 </template>
 <script>
     import { homeColumn } from '@/config/tableColumn'
-    import { delMethods } from '@/config/utils'
+    import { delMethods, editTips } from '@/config/utils'
     import { homeInterfaceRequest } from '@/config/httpRequest'
     import mixin from '@/mixins/mixin'
     export default {
         name: 'homeManage',
         mixins: [mixin],
         data() {
+            let checkEmail = (rule, value, callback) => {
+                let emailRegExp = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+                if(value) {
+                    if(emailRegExp.test(value) == false) {
+                        callback(new Error('请输入正确的邮箱格式！'))
+                    } else {
+                        callback()
+                    }
+                } else {
+                    callback()
+                }
+            }
             return {
                 tableObject: {
                     data: [], // 表格数据
@@ -98,6 +110,9 @@
                     ],
                     homePhoto: [
                         { required: true, message: '请选择图片' }
+                    ],
+                    homeMail: [
+                        { required: false, validator: checkEmail, trigger: 'blur' }
                     ],
                 },
                 languageList: [],
@@ -144,18 +159,19 @@
                 })
             },
             // 图片上传成功
-            uploadSuccess(response, file, fileList) {
+            uploadSuccess(response, file, fileList, imageName) {
                 this.$set(this.form, 'homePhoto', response)
             },
             // 图片移除
-            uploadRemove(file, fileList) {
-
+            uploadRemove(file, fileList, imageName) {
+                this.$set(this.form, imageName, [])
             },
             // 保存
             onSubmit() {
                 homeInterfaceRequest.saveHomeData(this.form).then(res => {
-                    this.$message.success(res.msg)
+                    editTips(this.title)
                     if(res.success) {
+                        this.homePhoto = []
                         this.editDialogShow = false
                         this.getData(this.currentPage)
                     }
