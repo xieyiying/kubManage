@@ -63,9 +63,9 @@
         },
         data() {
             let checkSortValue = (rule, value, callback) => {
-                let sortRegExp = /\d/
+                let sortRegExp = /[^\d]/g
                 if(value) {
-                    if(sortRegExp.test(value) == false) {
+                    if(sortRegExp.test(value) == true) {
                         callback(new Error('请输入数字！'))
                     } else {
                         callback()
@@ -173,6 +173,7 @@
                             if(res.success) {
                                 this.newsPhotoUrl = []
                                 this.$refs[formName].resetFields()
+                                this.form.isPublish = '0'
                                 this.$router.push({path: '/newsManage'})
                             }
                         })
@@ -206,6 +207,7 @@
                 this.getSingleData(this.$route.query.id)
             } else {
                 this.form = {}
+                this.form.isPublish = '0'
                 this.newsPhotoUrl = []
             }
         },

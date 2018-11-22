@@ -21,6 +21,18 @@
     import { LoginRequest } from '@/config/httpRequest'
     export default {
         data: function(){
+            let checkLoginMsg = (rule, value, callback) => {
+                let regExp = /^\S+$/
+                if(value) {
+                    if(regExp.test(value) == false) {
+                        callback(new Error('不能包含空格！'))
+                    } else {
+                        callback()
+                    }
+                } else {
+                    callback(new Error('请输入信息！'))
+                }
+            }
             return {
                 ruleForm: {
                     username: '',
@@ -28,10 +40,10 @@
                 },
                 rules: {
                     username: [
-                        { required: true, message: '请输入用户名', trigger: 'blur' }
+                        { required: true, validator: checkLoginMsg, trigger: 'blur' }
                     ],
                     password: [
-                        { required: true, message: '请输入密码', trigger: 'blur' }
+                        { required: true, validator: checkLoginMsg, trigger: 'blur' }
                     ]
                 }
             }

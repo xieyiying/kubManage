@@ -1,5 +1,4 @@
 import { Message } from 'element-ui'
-import { getLanguageType } from '@/config/httpRequest'
 // 转换时间戳
 export const format = (now, fmt = 'yyyy-MM-dd') => {
     if (typeof now === 'string') {

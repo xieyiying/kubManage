@@ -48,7 +48,18 @@
     export default {
         name: 'userManage',
         data() {
-            const _that = this
+            let checkUserMsg = (rule, value, callback) => {
+                let regExp = /^\S+$/
+                if(value) {
+                    if(regExp.test(value) == false) {
+                        callback(new Error('不能包含空格！'))
+                    } else {
+                        callback()
+                    }
+                } else {
+                    callback(new Error('请输入信息！'))
+                }
+            }
             return {
                 tableObject: {
                     data: [], // 表格数据
@@ -57,18 +68,18 @@
                         {
                             text: '编辑',
                             callback: (index, row) => {
-                                _that.editDialogShow = true
-                                _that.getSingleUser(row.id)
-                                _that.title = '编辑'
+                                this.editDialogShow = true
+                                this.getSingleUser(row.id)
+                                this.title = '编辑'
                             },
                         },
                         {
                             text: '删除',
                             type: 'danger',
                             callback: (index, row) => {
-                                _that.delDialogShow = true
-                                _that.delId = row.id
-                                _that.delflag = 'single'
+                                this.delDialogShow = true
+                                this.delId = row.id
+                                this.delflag = 'single'
                             },
                         }
                     ]
@@ -84,10 +95,10 @@
                 form: {},
                 rules: {
                     name: [
-                        { required: true, message: '请输入用户名', trigger: 'blur' }
+                        { required: true, validator: checkUserMsg, trigger: 'blur' }
                     ],
                     password: [
-                        { required: true, message: '请输入密码', trigger: 'blur' }
+                        { required: true, validator: checkUserMsg, trigger: 'blur' }
                     ]
                 }
             }

@@ -65,7 +65,7 @@
                             this.callback()
                             // this.$refs[formName].resetFields()
                         } else {
-                            this.$message.warning('保存失败，请填写完整信息！')
+                            this.$message.warning('保存失败，信息未填写完整或填写有误！')
                             return false;
                         }
                     })

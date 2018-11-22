@@ -56,9 +56,9 @@
         mixins: [mixin],
         data() {
             let checkSortValue = (rule, value, callback) => {
-                let sortRegExp = /\d/
+                let sortRegExp = /[^\d]/g
                 if(value) {
-                    if(sortRegExp.test(value) == false) {
+                    if(sortRegExp.test(value) == true) {
                         callback(new Error('请输入数字！'))
                     } else {
                         callback()
