@@ -34,8 +34,8 @@
                     </el-form-item>
                     <el-form-item label="是否发布：" prop="isPublish">
                         <el-radio-group v-model="form.isPublish">
-                            <el-radio label="1">发布</el-radio>
-                            <el-radio label="0">不发布</el-radio>
+                            <el-radio :label="1">发布</el-radio>
+                            <el-radio :label="0">不发布</el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="新闻内容：" prop="content">
@@ -77,7 +77,7 @@
             return {
                 tableTitle: '',
                 form: {
-                    isPublish: '0'
+                    isPublish: 0
                 },
                 rules: {
                     languageType: [
@@ -134,7 +134,7 @@
                     this.$set(this.form, 'title', res.body.kubNavigatHome.title)
                     this.$set(this.form, 'newTitle', res.body.kubNavigatHome.newTitle)
                     this.$set(this.form, 'newsDate', res.body.kubNavigatHome.newsDate)
-                    this.$set(this.form, 'isPublish', res.body.kubNavigatHome.isPublish)
+                    this.$set(this.form, 'isPublish', parseInt(res.body.kubNavigatHome.isPublish))
                     this.$set(this.form, 'content', res.body.kubNavigatHome.content)
                     this.$set(this.form, 'id', id)
                 })
@@ -173,7 +173,7 @@
                             if(res.success) {
                                 this.newsPhotoUrl = []
                                 this.$refs[formName].resetFields()
-                                this.form.isPublish = '0'
+                                this.form.isPublish = 0
                                 this.$router.push({path: '/newsManage'})
                             }
                         })
@@ -184,7 +184,9 @@
                 })
             },
             backHomeManage(formName) {
-                this.form = {}
+                this.form = {
+                    isPublish: 0
+                }
                 this.newsPhotoUrl = []
                 this.$refs[formName].resetFields()
                 this.$router.push({path: '/newsManage'})
@@ -206,8 +208,9 @@
             if(this.$route.query.id) {
                 this.getSingleData(this.$route.query.id)
             } else {
-                this.form = {}
-                this.form.isPublish = '0'
+                this.form = {
+                    isPublish: 0
+                }
                 this.newsPhotoUrl = []
             }
         },
