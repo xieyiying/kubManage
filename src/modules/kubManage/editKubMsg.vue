@@ -13,10 +13,10 @@
                         <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="kubBackground" imageName="kubBackground"></c-upload>
                     </el-form-item>
                     <el-form-item label="标题头：" prop="kubTitleHeader">
-                        <el-input v-model="form.kubTitleHeader" placeholder="请输入标题头"></el-input>
+                        <el-input v-model.trim="form.kubTitleHeader" placeholder="请输入标题头"></el-input>
                     </el-form-item>
                     <el-form-item label="标题：" prop="kubTitle">
-                        <el-input v-model="form.kubTitle" placeholder="请输入标题"></el-input>
+                        <el-input v-model.trim="form.kubTitle" placeholder="请输入标题"></el-input>
                     </el-form-item>
                     <el-form-item label="内容：" prop="kubContent">
                         <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.kubContent"></vue-editor>
@@ -98,6 +98,10 @@
                 kubInterfaceRequest.updateData({
                     id: id
                 }).then(res => {
+                    this.form = {}
+                    this.kubBackground = []
+                    this.kubDetailsBackground = []
+                    this.boosPhoto = []
                     this.kubBackground.push({
                         url: res.body.kubNavigatHome.kubBackground
                     })
@@ -150,6 +154,9 @@
             },
             backHomeManage(formName) {
                 this.form = {}
+                this.kubBackground = []
+                this.kubDetailsBackground = []
+                this.boosPhoto = []
                 this.$refs[formName].resetFields()
                 this.$router.push({path: '/kubManage'})
             }

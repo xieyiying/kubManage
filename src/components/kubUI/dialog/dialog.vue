@@ -11,9 +11,9 @@
                 <div class="del-dialog-cnt" v-if="title === '删除'">删除不可恢复，是否确定删除？</div>
                 <slot v-else></slot>
                 <div class="dialog-footer" style="margin-top: 10px;">
-                    <el-form-item>
-                        <el-button @click="closeDialog('ruleForm')">取 消</el-button>
+                    <el-form-item style="text-align: right">
                         <el-button type="primary" @click="confirm('ruleForm')">确 定</el-button>
+                        <el-button @click="closeDialog('ruleForm')">取 消</el-button>
                     </el-form-item>  
                 </div>
             </el-form>
@@ -87,3 +87,6 @@
         }
     }
 </script>
+<style>
+    
+</style>

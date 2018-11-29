@@ -10,7 +10,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="产品系列标题：" prop="title">
-                        <el-input v-model="form.title" placeholder="请输入产品系列标题"></el-input>
+                        <el-input v-model.trim="form.title" placeholder="请输入产品系列标题"></el-input>
                     </el-form-item>
                     <el-form-item label="背景图：" prop="productBackground">
                         <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="productBackground" imageName="productBackground"></c-upload>
@@ -19,10 +19,10 @@
                         <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="productMainPhoto" imageName="productMainPhoto"></c-upload>
                     </el-form-item>
                     <el-form-item label="标题：" prop="productTitle">
-                        <el-input v-model="form.productTitle" placeholder="请输入标题"></el-input>
+                        <el-input v-model.trim="form.productTitle" placeholder="请输入标题"></el-input>
                     </el-form-item>
                     <el-form-item label="产品介绍：" prop="introduce">
-                        <el-input v-model="form.introduce" placeholder="请输入产品介绍"></el-input>
+                        <el-input v-model.trim="form.introduce" placeholder="请输入产品介绍"></el-input>
                     </el-form-item>
                     <el-form-item label="内容：" prop="productContent">
                         <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.productContent"></vue-editor>
@@ -82,9 +82,13 @@
         methods: {
             // 获取单条用户信息
             getSingleData(id) {
+                
                 productInterfaceRequest.updateData({
                     id: id
                 }).then(res => {
+                    this.form = {}
+                    this.productBackground = []
+                    this.productMainPhoto = []
                     this.productBackground.push({
                         url: res.body.kubNavigatHome.productBackground
                     })
@@ -139,6 +143,9 @@
         },
         created() {
             this.tableTitle = this.$route.query.title + '数据'
+            this.form = {}
+            this.productBackground = []
+            this.productMainPhoto = []
         },
         activated() {
             if(this.$route.query.id) {

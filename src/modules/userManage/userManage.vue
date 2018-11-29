@@ -33,10 +33,10 @@
           @closeDialog="closeDialog"
         >
             <el-form-item label="用户名：" prop="name">
-                <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
+                <el-input v-model.trim="form.name" placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item label="密码：" prop="password">
-                <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
+                <el-input v-model.trim="form.password" type="password" placeholder="请输入密码"></el-input>
             </el-form-item>
         </c-dialog>
     </div>

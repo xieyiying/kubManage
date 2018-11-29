@@ -15,22 +15,22 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="新闻排序：" prop="sort">
-                        <el-input v-model="form.sort" placeholder="请输入新闻排序"></el-input>
+                        <el-input v-model.trim="form.sort" placeholder="请输入新闻排序"></el-input>
                     </el-form-item>
                     <el-form-item label="新闻表述：" prop="newDescr">
-                        <el-input type="textarea" rows="5" v-model="form.newDescr" placeholder="请输入新闻表述"></el-input>
+                        <el-input type="textarea" rows="5" v-model.trim="form.newDescr" placeholder="请输入新闻表述"></el-input>
                     </el-form-item>
                     <el-form-item label="新闻封面图片：" prop="newsPhotoUrl">
                         <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="newsPhotoUrl" imageName="newsPhotoUrl"></c-upload>
                     </el-form-item>
                     <el-form-item label="新闻标题：" prop="title">
-                        <el-input v-model="form.title" placeholder="请输入新闻标题"></el-input>
+                        <el-input v-model.trim="form.title" placeholder="请输入新闻标题"></el-input>
                     </el-form-item>
                     <el-form-item label="新闻详情标题：" prop="newTitle">
-                        <el-input v-model="form.newTitle" placeholder="请输入新闻详情标题"></el-input>
+                        <el-input v-model.trim="form.newTitle" placeholder="请输入新闻详情标题"></el-input>
                     </el-form-item>
                     <el-form-item label="新闻时间：" prop="newsDate">
-                        <el-date-picker v-model="form.newsDate" type="datetime" placeholder="请选择新闻日期时间" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+                        <el-date-picker v-model="form.newsDate" type="datetime" placeholder="请选择新闻日期时间" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions1"></el-date-picker>
                     </el-form-item>
                     <el-form-item label="是否发布：" prop="isPublish">
                         <el-radio-group v-model="form.isPublish">
@@ -111,6 +111,11 @@
                         { required: true, message: '请输入新闻内容', trigger: 'blur' }
                     ],
                 },
+                pickerOptions1: {
+                    disabledDate (time) {
+                        return time.getTime() > Date.now()
+                    }
+                },
                 languageList: [],
                 newsTypeList: [],
                 newsPhotoUrl: [],
@@ -123,6 +128,10 @@
                 newsInterfaceRequest.updateData({
                     id: id
                 }).then(res => {
+                    this.form = {
+                        isPublish: 0
+                    }
+                    this.newsPhotoUrl = []
                     this.newsPhotoUrl.push({
                         url: res.body.kubNavigatHome.newsPhotoUrl
                     })
@@ -146,12 +155,15 @@
                         languageType: languageType
                     }).then(res => {
                         this.$set(this.form, 'sort', res)
+                        this.getNewsType(languageType)
                     })
                 }
             },
             // 获取新闻类型
-            getNewsType() {
-                newsInterfaceRequest.getNewsType({}).then(res => {
+            getNewsType(languageType) {
+                newsInterfaceRequest.getNewsType({
+                    languageType: languageType
+                }).then(res => {
                     this.newsTypeList = res
                 })
             },
@@ -201,7 +213,7 @@
         },
         created() {
             this.tableTitle = this.$route.query.title + '数据'
-            this.getNewsType()
+            // this.getNewsType()
         },
         activated() {
             this.changeGetSort(this.$route.query.title)

@@ -41,10 +41,10 @@
                 <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="homePhoto" imageName="homePhoto"></c-upload>
             </el-form-item>
             <el-form-item label="文字">
-                <el-input v-model="form.homeConten" placeholder="请输入文字"></el-input>
+                <el-input v-model.trim="form.homeConten" placeholder="请输入文字"></el-input>
             </el-form-item>
             <el-form-item label="邮箱" prop="homeMail">
-                <el-input v-model="form.homeMail" placeholder="请输入邮箱"></el-input>
+                <el-input v-model.trim="form.homeMail" placeholder="请输入邮箱"></el-input>
             </el-form-item>
         </c-dialog>
     </div>

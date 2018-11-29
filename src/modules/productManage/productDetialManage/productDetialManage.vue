@@ -47,10 +47,10 @@
                 <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="productPhoto" imageName="productPhoto"></c-upload>
             </el-form-item>
             <el-form-item label="产品名称" prop="productName">
-                <el-input v-model="form.productName" placeholder="请输入产品名称"></el-input>
+                <el-input v-model.trim="form.productName" placeholder="请输入产品名称"></el-input>
             </el-form-item>
             <el-form-item label="产品链接" prop="productUrl">
-                <el-input v-model="form.productUrl" placeholder="请输入产品链接"></el-input>
+                <el-input v-model.trim="form.productUrl" placeholder="请输入产品链接"></el-input>
             </el-form-item>
         </c-dialog>
     </div>

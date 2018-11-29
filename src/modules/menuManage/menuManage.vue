@@ -38,10 +38,10 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="排序：" prop="sort">
-                <el-input v-model="form.sort" placeholder="请输入排序"></el-input>
+                <el-input v-model.trim="form.sort" placeholder="请输入排序"></el-input>
             </el-form-item>
             <el-form-item label="菜单名：" prop="name">
-                <el-input v-model="form.name" placeholder="请输入菜单名"></el-input>
+                <el-input v-model.trim="form.name" placeholder="请输入菜单名"></el-input>
             </el-form-item>
         </c-dialog>
     </div>
