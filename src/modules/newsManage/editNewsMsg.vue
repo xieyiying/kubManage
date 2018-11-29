@@ -136,7 +136,7 @@
                         url: res.body.kubNavigatHome.newsPhotoUrl
                     })
                     this.$set(this.form, 'languageType', res.body.kubNavigatHome.languageType)
-                    this.$set(this.form, 'newsType', res.body.kubNavigatHome.newsType)
+                    this.$set(this.form, 'newsType', parseInt(res.body.kubNavigatHome.newsType))
                     this.$set(this.form, 'sort', res.body.kubNavigatHome.sort)
                     this.$set(this.form, 'newDescr', res.body.kubNavigatHome.newDescr)
                     this.$set(this.form, 'newsPhotoUrl', res.body.kubNavigatHome.newsPhotoUrl)
@@ -155,16 +155,23 @@
                         languageType: languageType
                     }).then(res => {
                         this.$set(this.form, 'sort', res)
-                        this.getNewsType(languageType)
                     })
                 }
+                this.getNewsType(languageType)
             },
             // 获取新闻类型
             getNewsType(languageType) {
                 newsInterfaceRequest.getNewsType({
                     languageType: languageType
                 }).then(res => {
-                    this.newsTypeList = res
+                    this.newsTypeList = []
+                    res.forEach(item => {
+                        this.newsTypeList.push({
+                            label: item.label,
+                            value: parseInt(item.value)
+                        })
+                    })
+                    console.log(this.newsTypeList)
                 })
             },
             // 图片上传成功
@@ -213,7 +220,6 @@
         },
         created() {
             this.tableTitle = this.$route.query.title + '数据'
-            // this.getNewsType()
         },
         activated() {
             this.changeGetSort(this.$route.query.title)

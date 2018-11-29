@@ -61,6 +61,7 @@
                 }
             }
             return {
+                username: localStorage.getItem('username'),
                 tableObject: {
                     data: [], // 表格数据
                     column: userColumn, // 表格头
@@ -68,18 +69,29 @@
                         {
                             text: '编辑',
                             callback: (index, row) => {
-                                this.editDialogShow = true
-                                this.getSingleUser(row.id)
-                                this.title = '编辑'
+                                // let username = localStorage.getItem('username')
+                                let rowName = row.name
+                                if(this.username === rowName) {
+                                    this.editDialogShow = true
+                                    this.getSingleUser(row.id)
+                                    this.title = '编辑'
+                                } else {
+                                    this.$message.error('你没有没有权限操作该用户信息！')
+                                }
                             },
                         },
                         {
                             text: '删除',
                             type: 'danger',
                             callback: (index, row) => {
-                                this.delDialogShow = true
-                                this.delId = row.id
-                                this.delflag = 'single'
+                                let rowName = row.name
+                                if(this.username === rowName) {
+                                    this.delDialogShow = true
+                                    this.delId = row.id
+                                    this.delflag = 'single'
+                                } else {
+                                    this.$message.error('你没有没有权限操作该用户信息！')
+                                }
                             },
                         }
                     ]

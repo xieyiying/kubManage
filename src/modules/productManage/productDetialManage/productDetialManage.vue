@@ -117,17 +117,6 @@
                 },
                 productTypeList: [], // 产品类型
                 productPhoto: [],
-                productType: new Map([
-                    ['1', ['孕产系列']],
-                    ['2', ['童装系列']],
-                    ['3', ['安防系列']],
-                    ['4', ['出行系列']],
-                    ['5', ['用品系列']],
-                    ['6', ['喂哺系列']],
-                    ['7', ['玩教系列']],
-                    ['8', ['睡眠系列']],
-                    ['default', ['']],
-                ])
             }
         },
         methods: {
@@ -138,10 +127,6 @@
                     pageSize: 10
                 }).then(res => {
                     if(res.success) {
-                        res.body.list.forEach(item => {
-                            let action = this.productType.get(item.productId) || this.productType.get('default')
-                            item.productId = action[0]
-                        })
                         this.tableObject.data = res.body.list
                         this.totalPage = res.body.count
                     }

@@ -35,7 +35,7 @@
             return {
                 collapse: false,
                 fullscreen: false,
-                name: 'linxin',
+                name: 'test',
                 message: 2
             }
         },
@@ -90,7 +90,7 @@
             if(document.body.clientWidth < 1500){
                 this.collapseChage();
             }
-        }
+        },
     }
 </script>
 <style scoped>

@@ -98,12 +98,20 @@ export const productColumn = [
         prop: 'languageType',
         label: '语言',
     },
+    {
+        prop: 'sort',
+        label: '排序',
+    },
+    {
+        prop: 'createDate',
+        label: '创建时间',
+    },
 ]
 
 // 产品详情管理
 export const productDetialColumn = [
     {
-        prop: 'productId',
+        prop: 'titleType',
         label: '产品类型',
     },
     {
@@ -122,7 +130,7 @@ export const productDetialColumn = [
     {
         prop: 'languageType',
         label: '语言',
-    },
+    }
 ]
 
 // 资讯管理

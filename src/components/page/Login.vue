@@ -59,6 +59,7 @@
                             if(res.success) {
                                 localStorage.setItem('username',this.ruleForm.username);
                                 this.$router.push('/');
+                                
                             } else {
                                 this.$message.error(res.msg)
                             }

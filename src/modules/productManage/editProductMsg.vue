@@ -12,6 +12,12 @@
                     <el-form-item label="产品系列标题：" prop="title">
                         <el-input v-model.trim="form.title" placeholder="请输入产品系列标题"></el-input>
                     </el-form-item>
+                    <el-form-item label="排序：" prop="sort">
+                        <el-input v-model.trim="form.sort" placeholder="请输入排序"></el-input>
+                    </el-form-item>
+                    <el-form-item label="小图：" prop="productWaiPhoto">
+                        <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="productWaiPhoto" imageName="productWaiPhoto"></c-upload>
+                    </el-form-item>
                     <el-form-item label="背景图：" prop="productBackground">
                         <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="productBackground" imageName="productBackground"></c-upload>
                     </el-form-item>
@@ -58,6 +64,9 @@
                     productBackground: [
                         { required: true, message: '请选择图片' }
                     ],
+                    sort: [
+                        { required: true, message: '请输入排序', trigger: 'blur' }
+                    ],
                     productTitle: [
                         { required: true, message: '请输入标题', trigger: 'blur' }
                     ],
@@ -73,10 +82,14 @@
                     productMainPhoto: [
                         { required: true, message: '请选择图片' }
                     ],
+                    productWaiPhoto: [
+                        { required: true, message: '请选择图片' }
+                    ],
                 },
                 languageList: [],
                 productBackground: [],
                 productMainPhoto: [],
+                productWaiPhoto: []
             }
         },
         methods: {
@@ -89,20 +102,32 @@
                     this.form = {}
                     this.productBackground = []
                     this.productMainPhoto = []
+                    this.productWaiPhoto = []
                     this.productBackground.push({
                         url: res.body.kubNavigatHome.productBackground
                     })
                     this.productMainPhoto.push({
                         url: res.body.kubNavigatHome.productMainPhoto
                     })
+                    this.productWaiPhoto.push({
+                        url: res.body.kubNavigatHome.productWaiPhoto
+                    })
+                    
                     this.$set(this.form, 'languageType', res.body.kubNavigatHome.languageType)
                     this.$set(this.form, 'productBackground', res.body.kubNavigatHome.productBackground)
                     this.$set(this.form, 'productTitle', res.body.kubNavigatHome.productTitle)
                     this.$set(this.form, 'productContent', res.body.kubNavigatHome.productContent)
+                    this.$set(this.form, 'sort', res.body.kubNavigatHome.sort)
                     this.$set(this.form, 'productMainPhoto', res.body.kubNavigatHome.productMainPhoto)
                     this.$set(this.form, 'title', res.body.kubNavigatHome.title)
                     this.$set(this.form, 'introduce', res.body.kubNavigatHome.introduce)
+                    this.$set(this.form, 'productWaiPhoto', res.body.kubNavigatHome.productWaiPhoto)
                     this.$set(this.form, 'id', id)
+                })
+            },
+            getSort() {
+                productInterfaceRequest.getSort({}).then(res => {
+                    this.$set(this.form, 'sort', res)
                 })
             },
             // 图片上传成功
@@ -124,6 +149,7 @@
                                 this.$refs[formName].resetFields()
                                 this.productBackground = []
                                 this.productMainPhoto = []
+                                this.productWaiPhoto = []
                                 this.$router.push({path: '/productManage'})
                             }
                         })
@@ -137,6 +163,7 @@
                 this.form = {}
                 this.productBackground = []
                 this.productMainPhoto = []
+                this.productWaiPhoto = []
                 this.$refs[formName].resetFields()
                 this.$router.push({path: '/productManage'})
             }
@@ -146,6 +173,7 @@
             this.form = {}
             this.productBackground = []
             this.productMainPhoto = []
+            this.productWaiPhoto = []
         },
         activated() {
             if(this.$route.query.id) {
@@ -154,6 +182,8 @@
                 this.form = {}
                 this.productBackground = []
                 this.productMainPhoto = []
+                this.productWaiPhoto = []
+                this.getSort()
             }
         }
     }

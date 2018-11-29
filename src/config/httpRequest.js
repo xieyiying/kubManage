@@ -129,6 +129,10 @@ export const productInterfaceRequest = {
     updateData: params => {
         return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/updateForm', params)
     },
+    // 获取排序
+    getSort: params => {
+        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/addForm', params)
+    },
     // 保存信息
     saveData: params => {
         return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/save', params)

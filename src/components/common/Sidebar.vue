@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar">
-        <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" active-text-color="#8B7355" unique-opened router>
+        <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" active-text-color="#8B7355" unique-opened router text-color="#fff">
             <template v-for="item in items">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index">
@@ -107,8 +107,15 @@
     .el-menu {
         background-color: rgba(56, 157, 170, 0.7)!important;
     }
+    /* .el-menu .el-menu-item {
+        color: #fff!important;
+    } */
     .el-menu .el-menu-item:hover {
         color: #333;
+        background-color: rgba(255, 255, 255, 0);
+    }
+    .el-submenu__title:hover {
+        background-color: rgba(255, 255, 255, 0);
     }
     .sidebar::-webkit-scrollbar{
         width: 0;
