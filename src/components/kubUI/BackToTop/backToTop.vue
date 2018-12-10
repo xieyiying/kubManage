@@ -17,7 +17,6 @@
       methods:{
         handleScroll () {
             this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-            console.log(this.scrollTop)
             if(this.scrollTop > 100){
                 this.goTopShow = true
             } else {

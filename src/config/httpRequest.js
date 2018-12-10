@@ -1,4 +1,4 @@
-import { getRequest, httpUrl } from '@/config/network'
+import { getRequest, postRequest, httpUrl } from '@/config/network'
 
 // 登录请求
 export const LoginRequest = params => {
@@ -106,7 +106,7 @@ export const kubInterfaceRequest = {
     },
     // 保存kub信息
     saveData: params => {
-        return getRequest(httpUrl + '/kubgw/page/kubgw/kub/kubNavigatKub/save', params)
+        return postRequest(httpUrl + '/kubgw/page/kubgw/kub/kubNavigatKub/save', params)
     },
     // 删除kub信息
     deleteData: params => {
@@ -135,7 +135,7 @@ export const productInterfaceRequest = {
     },
     // 保存信息
     saveData: params => {
-        return getRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/save', params)
+        return postRequest(httpUrl + '/kubgw/page/kubgw/product/kubNavigatProduct/save', params)
     },
     // 删除信息
     deleteData: params => {
@@ -197,7 +197,7 @@ export const newsInterfaceRequest = {
     },
     // 保存信息
     saveData: params => {
-        return getRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/save', params)
+        return postRequest(httpUrl + '/kubgw/page/kubgw/news/kubNavigatNews/save', params)
     },
     // 删除信息
     deleteData: params => {

@@ -43,8 +43,8 @@
             <el-form-item label="文字">
                 <el-input v-model.trim="form.homeConten" placeholder="请输入文字"></el-input>
             </el-form-item>
-            <el-form-item label="邮箱" prop="homeMail">
-                <el-input v-model.trim="form.homeMail" placeholder="请输入邮箱"></el-input>
+            <el-form-item label="邮箱/电话">
+                <el-input v-model.trim="form.homeMail" placeholder="请输入邮箱/电话"></el-input>
             </el-form-item>
         </c-dialog>
     </div>
@@ -58,18 +58,18 @@
         name: 'homeManage',
         mixins: [mixin],
         data() {
-            let checkEmail = (rule, value, callback) => {
-                let emailRegExp = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
-                if(value) {
-                    if(emailRegExp.test(value) == false) {
-                        callback(new Error('请输入正确的邮箱格式！'))
-                    } else {
-                        callback()
-                    }
-                } else {
-                    callback()
-                }
-            }
+            // let checkEmail = (rule, value, callback) => {
+            //     let emailRegExp = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+            //     if(value) {
+            //         if(emailRegExp.test(value) == false) {
+            //             callback(new Error('请输入正确的邮箱格式！'))
+            //         } else {
+            //             callback()
+            //         }
+            //     } else {
+            //         callback()
+            //     }
+            // }
             return {
                 tableObject: {
                     data: [], // 表格数据
@@ -111,9 +111,9 @@
                     homePhoto: [
                         { required: true, message: '请选择图片' }
                     ],
-                    homeMail: [
-                        { required: false, validator: checkEmail, trigger: 'blur' }
-                    ],
+                    // homeMail: [
+                    //     { required: false, validator: checkEmail, trigger: 'blur' }
+                    // ],
                 },
                 languageList: [],
                 homePhoto: [],

@@ -180,7 +180,6 @@
             },
             // 保存
             onSubmit(formName) {
-                // console.log(formName)
                 backgroundInterfaceRequest.saveData(this.form).then(res => {
                     editTips(this.title)
                     if(res.success) {

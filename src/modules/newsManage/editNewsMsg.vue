@@ -39,9 +39,9 @@
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="新闻内容：" prop="content">
-                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.content"></vue-editor>
+                        <vue-editor class="editor_box" name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.content" style="height: 750px;"></vue-editor>
                     </el-form-item>
-                    <el-form-item>
+                    <el-form-item style="margin-top: 100px;">
                         <el-button type="primary" @click="onSubmit('form')">保存</el-button>
                         <el-button @click="backHomeManage('form')">取消</el-button>
                     </el-form-item>
@@ -171,7 +171,6 @@
                             value: parseInt(item.value)
                         })
                     })
-                    console.log(this.newsTypeList)
                 })
             },
             // 图片上传成功
@@ -234,3 +233,8 @@
         },
     }
 </script>
+<style>
+    .editor_box {
+        height: 500px;
+    }
+</style>

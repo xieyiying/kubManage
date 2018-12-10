@@ -167,7 +167,6 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
-                console.log(this.multipleSelection)
             },
             // 保存编辑
             saveEdit() {

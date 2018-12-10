@@ -19,21 +19,21 @@
                         <el-input v-model.trim="form.kubTitle" placeholder="请输入标题"></el-input>
                     </el-form-item>
                     <el-form-item label="内容：" prop="kubContent">
-                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.kubContent"></vue-editor>
+                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.kubContent" style="height: 650px;"></vue-editor>
                     </el-form-item>
-                    <el-form-item label="详情背景图：" prop="kubDetailsBackground">
+                    <el-form-item label="详情背景图：" prop="kubDetailsBackground" style="margin-top: 100px;">
                         <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="kubDetailsBackground" imageName="kubDetailsBackground"></c-upload>
                     </el-form-item>
                     <el-form-item label="详情内容：" prop="kubDetailsContent">
-                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.kubDetailsContent"></vue-editor>
+                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.kubDetailsContent" style="height: 650px;"></vue-editor>
                     </el-form-item>
-                    <el-form-item label="老板照片：" prop="boosPhoto">
+                    <el-form-item label="老板照片：" prop="boosPhoto" style="margin-top: 100px;">
                         <c-upload @on-success="uploadSuccess" @on-remove="uploadRemove" :fileList="boosPhoto" imageName="boosPhoto"></c-upload>
                     </el-form-item>
                     <el-form-item label="老板介绍：" prop="boosIntroduce">
-                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.boosIntroduce"></vue-editor>
+                        <vue-editor name="imageContent" useCustomImageHandler @imageAdded="handleImageAdded" v-model="form.boosIntroduce" style="height: 500px;"></vue-editor>
                     </el-form-item>
-                    <el-form-item>
+                    <el-form-item style="margin-top: 100px;">
                         <el-button type="primary" @click="onSubmit('form')">保存</el-button>
                         <el-button @click="backHomeManage('form')">取消</el-button>
                     </el-form-item>
@@ -62,28 +62,28 @@
                         { required: true, message: '请选择语言', trigger: 'blur' }
                     ],
                     kubBackground: [
-                        { required: true, message: '请选择图片' }
+                        { required: true, message: '请选择图片', trigger: 'blur' }
                     ],
                     kubTitleHeader: [
-                        { required: true, message: '请输入标题头' }
+                        { required: true, message: '请输入标题头', trigger: 'blur' }
                     ],
                     kubTitle: [
-                        { required: true, message: '请输入标题' }
+                        { required: true, message: '请输入标题', trigger: 'blur' }
                     ],
                     kubContent: [
-                        { required: true, message: '请输入内容' }
+                        { required: true, message: '请输入内容', trigger: 'blur' }
                     ],
                     kubDetailsBackground: [
-                        { required: true, message: '请选择图片' }
+                        { required: true, message: '请选择图片', trigger: 'blur' }
                     ],
                     kubDetailsContent: [
-                        { required: true, message: '请输入内容' }
+                        { required: true, message: '请输入内容', trigger: 'blur' }
                     ],
                     boosIntroduce: [
-                        { required: true, message: '请输入内容' }
+                        { required: true, message: '请输入内容', trigger: 'blur' }
                     ],
                     boosPhoto: [
-                        { required: true, message: '请选择图片' }
+                        { required: true, message: '请选择图片', trigger: 'blur' }
                     ],
                 },
                 languageList: [],
