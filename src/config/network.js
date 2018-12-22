@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
-export const httpUrl = process.env.NODE_ENV === 'development' ? '/api' : 'http://47.99.51.37:8068'
+export const httpUrl = process.env.NODE_ENV === 'development' ? '/api' : 'http://www.kubbaby.com'
 
 
 // post请求
